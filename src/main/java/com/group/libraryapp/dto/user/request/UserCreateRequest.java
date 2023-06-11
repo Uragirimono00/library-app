@@ -13,12 +13,10 @@ public class UserCreateRequest {
     this.age = age;
   }
 
-  @Nullable
   public String getName() {
     return name;
   }
 
-  @Nullable
   public Integer getAge() {
     return age;
   }

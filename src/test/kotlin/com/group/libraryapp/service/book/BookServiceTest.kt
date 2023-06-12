@@ -75,10 +75,11 @@ class BookServiceTest @Autowired constructor(
         val request = BookLoanRequest("백형서", "이상한 나라의 엘리스")
 
         // when & then
-        val message = assertThrows<IllegalArgumentException> {
+        assertThrows<IllegalArgumentException> {
             bookService.loanBook(request)
-        }.message
-        assertThat(message).isEqualTo("진작 대출되어 있는 책입니다")
+        }.message.apply {
+            assertThat(this).isEqualTo("진작 대출되어 있는 책입니다")
+        }
     }
 
     @Test

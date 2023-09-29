@@ -4,10 +4,8 @@ import com.group.libraryapp.domain.user.User
 import com.group.libraryapp.domain.user.UserRepository
 import com.group.libraryapp.dto.user.request.UserCreateRequest
 import com.group.libraryapp.dto.user.request.UserUpdateRequest
-import com.group.libraryapp.dto.user.response.BookHistoryResponse
 import com.group.libraryapp.dto.user.response.UserLoanHistoryResponse
 import com.group.libraryapp.dto.user.response.UserResponse
-import com.group.libraryapp.enums.user.UserLoanStatus
 import com.group.libraryapp.util.fail
 import com.group.libraryapp.util.findByIdOrThrow
 import org.springframework.stereotype.Service
@@ -44,17 +42,7 @@ class UserService(
 
   @Transactional(readOnly = true)
   fun getUserLoanBookHistories(): List<UserLoanHistoryResponse> {
-    return userRepository.findAll().map { user ->
-      UserLoanHistoryResponse(
-        name = user.name,
-        books = user.userLoanHistories.map { history -> // 이건 무조건 N + 1 문제 발생할듯 ?
-          BookHistoryResponse(
-            name = history.bookName,
-            isReturn = history.status == UserLoanStatus.RETURNED
-          )
-        }
-      )
-    }
+    return userRepository.findALLWithHistories().map(UserLoanHistoryResponse::of)
   }
 
 }

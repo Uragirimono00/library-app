@@ -38,6 +38,7 @@ class BookServiceTest @Autowired constructor(
   @DisplayName("책 등록이 정상 동작한다.")
   fun saveBookTest() {
     // given
+    BookRequest("이상한 나라의 엘리스", BookEnums.COMPUTER).nameValid()
     val request = BookRequest("이상한 나라의 엘리스", BookEnums.COMPUTER)
 
     // when

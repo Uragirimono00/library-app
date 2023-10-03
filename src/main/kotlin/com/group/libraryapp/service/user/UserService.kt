@@ -18,8 +18,8 @@ class UserService(
 
   @Transactional
   fun saveUser(request: UserCreateRequest) {
-    val newser = User(request.name, request.age)
-    userRepository.save(newser)
+    val newUser = User(request.name, request.age)
+    userRepository.save(newUser)
   }
 
   @Transactional(readOnly = true)
@@ -42,7 +42,7 @@ class UserService(
 
   @Transactional(readOnly = true)
   fun getUserLoanBookHistories(): List<UserLoanHistoryResponse> {
-    return userRepository.findALLWithHistories().map(UserLoanHistoryResponse::of)
+    return userRepository.findAllWithHistories().map(UserLoanHistoryResponse::of)
   }
 
 }

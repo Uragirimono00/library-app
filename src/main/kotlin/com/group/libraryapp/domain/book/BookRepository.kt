@@ -8,10 +8,4 @@ interface BookRepository : JpaRepository<Book, Long> {
 
   fun findByName(bookName: String): Book?
 
-  @Query(
-    "select new com.group.libraryapp.dto.book.response.BookStatResponse(b.type, count(b.id)) " +
-      "from Book b " +
-      "GROUP BY b.type"
-  ) // JPQL은 진짜 쉽지않다...
-  fun getStatus(): List<BookStatResponse>
 }
